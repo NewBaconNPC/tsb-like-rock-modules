@@ -1,77 +1,3 @@
-if getgenv().Rain ~= true then getgenv().Rain = true 
-pcall(function()
-local module = {}
-
-function module:Rain()
-	if not _G.Raining then
-		_G.Raining = true
-	end
-end
-
-
-s=Instance.new'Sound';
-s.Parent=game.CoreGui;
-s.SoundId='rbxassetid://8114441138';
-s.Pitch=1;
-s.Volume=.3;
-s.Looped=true;
-s:play();
-
-wait(0.1)
-
-
-s=Instance.new'Sound';
-s.Parent=game.CoreGui;
-s.SoundId='rbxassetid://5911952995';
-s.Pitch=1.3;
-s.Volume=.8;
-s.Looped=true;
-s:play();
-
-
-wait(0.1)
-local colors = {
-	BrickColor.new("White"),
-	BrickColor.new("White"),
-	BrickColor.new("Really black"),
-	BrickColor.new("Really black"),
-}
-wait(0.1)
-local bright = game.Lighting.Brightness
-
-function prop(part, parent, collide, tran, ref, x, y, z, color, anchor, form)
-	part.Parent = parent
-	part.formFactor = form
-	part.CanCollide = collide
-	part.Transparency = tran
-	part.Material = 'Neon'
-	part.Reflectance = ref
-	part.Size = Vector3.new(x,y,z)
-	part.BrickColor = BrickColor.new(color)
-	part.TopSurface = 0
-	part.BottomSurface = 0
-	part.Anchored = anchor
-	part.Locked = true
-	part:BreakJoints()
-end
---[[task.spawn(function()
-for i = 0,100 do
-	wait(0.01) 
-	c = Instance.new("Part") 
-	c.Position = Vector3.new(math.random(-100,100),math.random(0,50),math.random(-100,100)) 
-	c.Transparency = 1
-	c.Reflectance = 0 
-	c.Size = Vector3.new(0.5, 0.5, 0.5) 
-	c.BrickColor = BrickColor.new(23) 
-	c.CanCollide = true 
-	c.Locked = true 
-	c.Anchored = false 
-	c.Shape = 0 
-	c.Parent = game.Workspace 
-end
-end)]]
-task.wait()
-
 --[[
 	
 	Rain module v1.0 by buildthomas (July 2018)
@@ -366,8 +292,6 @@ local Emitter do
 	Emitter.Transparency = 1
 	Emitter.Anchored = true
 	Emitter.CanCollide = false
-	Emitter.CanTouch = false
-	Emitter.CanQuery = false
 	Emitter.Locked = false
 	Emitter.Archivable = false
 	Emitter.TopSurface = Enum.SurfaceType.Smooth
@@ -389,6 +313,7 @@ local Emitter do
 	straight.Speed = NumberRange.new(RAIN_STRAIGHT_MAX_SPEED)
 	straight.EmissionDirection = Enum.NormalId.Bottom
 	straight.Parent = Emitter
+	straight.Orientation = Enum.ParticleOrientation.FacingCameraWorldUp
 	
 	local topdown = Instance.new("ParticleEmitter")
 	topdown.Name = "RainTopDown"
@@ -1130,8 +1055,4 @@ function Rain:SetCollisionMode(mode, param)
 	
 end
 
-module:Rain()
-Rain:Enable(TweenInfo.new(5))
-
-end)
-else end
+return Rain
